@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vet Care Admin</title>
+    <link rel="stylesheet" href="Vet_Admin_CSS.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">Vet Care</div>
+        <nav>
+            <a href="#" class="nav-btn active">Add Staff</a>
+            <a href="#" class="nav-btn">Log Staff</a>
+            <a href="#" class="nav-btn">Excel Log</a>
+        </nav>
+    </header>
+    <main>
+        <section class="staff-section">
+            <div class="staff-controls">
+                <button class="add-btn" id="openModal">+</button>
+                <input type="text" id="searchBar" placeholder="Search staff...">
+            </div>
+            <div id="staffCards" class="staff-cards"></div>
+        </section>
+        <section class="excel-log-section" style="display: none;">
+            <div class="excel-controls">
+                <div class="excel-search-filter">
+                    <input type="text" id="excelSearchInput" placeholder="Search by owner name, cell number...">
+                    <select id="excelFilterSelect">
+                        <option value="">All Records</option>
+                        <option value="owner">Filter by Owner Name</option>
+                        <option value="cell">Filter by Cell Number</option>
+                        <option value="date">Filter by Date</option>
+                    </select>
+                </div>
+                <div class="excel-action-btns">
+                    <button class="delete-all-btn" id="deleteAllBtn">Delete All</button>
+                    <button class="export-btn" id="exportBtn">Excel Extract</button>
+                </div>
+            </div>
+            <div id="lastExtractionInfo" class="last-extraction-info" style="margin: 0 20px 18px; color: #1f7d82; font-weight: 700; font-size: 0.95rem; display: none;"></div>
+            <div id="excelLogTableContainer">
+                <table id="excelLogTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Date Logged</th>
+                            <th>Owner Name</th>
+                            <th>Cell Number</th>
+                            <th>Birth Date</th>
+                            <th>Address</th>
+                            <th>Owner Code</th>
+                            <th>Pet Name</th>
+                            <th>Pets / LiveStock</th>
+                            <th>Sex</th>
+                            <th>Save Date</th>
+                            <th>Symptoms</th>
+                            <th>Medication</th>
+                        </tr>
+                    </thead>
+                    <tbody id="excelLogTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    <!-- Add Staff Modal -->
+    <div id="staffModal" class="modal">
+        <div class="modal-content modal-wide">
+            <span class="close" id="closeModal">&times;</span>
+            <h2 id="formTitle">Register New Staff</h2>
+            <form id="staffForm">
+                <div class="form-row">
+                    <label>Full Name:<input type="text" id="fullName" required><span class="error-msg" id="fullNameErr"></span></label>
+                    <label>Gender:<select id="gender" required>
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="LGBTQ+">LGBTQ+</option>
+                    </select><span class="error-msg" id="genderErr"></span></label>
+                </div>
+                <div class="form-row">
+                    <label>Birth Date:<input type="date" id="birthDate" required><span class="error-msg" id="birthDateErr"></span></label>
+                    <label>Age:<input type="text" id="age" readonly></label>
+                </div>
+                <div class="form-row">
+                    <label>Address:<input type="text" id="address" required><span class="error-msg" id="addressErr"></span></label>
+                    <label>Cell Number:<input type="text" id="cellNumber" required><span class="error-msg" id="cellNumberErr"></span></label>
+                </div>
+                <div class="form-row">
+                    <label>Gmail:<input type="email" id="gmail" required><span class="error-msg" id="gmailErr"></span></label>
+                    <label>Password:<input type="password" id="password" required><span class="error-msg" id="passwordErr"></span></label>
+                </div>
+                <div class="form-row">
+                    <label>Profile Image:<input type="file" id="profileImage" accept="image/*"><span class="error-msg" id="profileImageErr"></span></label>
+                </div>
+                <button type="submit" id="formSubmitBtn">Add Staff</button>
+                <button type="button" id="cancelBtn">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Staff Info Modal -->
+    <div id="infoModal" class="modal">
+    <div class="modal-content info-modal-card">
+        <span class="close" id="closeInfoModal">&times;</span>
+        <div class="info-header">
+            <div id="infoProfilePic" class="profile-pic large"></div>
+            <div class="info-actions">
+                <i class="fa fa-pen edit-btn" id="editStaffBtn" title="Edit"></i>
+                <i class="fa fa-trash delete-btn" id="deleteStaffBtn" title="Delete"></i>
+            </div>
+        </div>
+        <div id="infoDetails"></div>
+    </div>
+</div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content modal-confirm">
+            <span class="close" id="closeDeleteModal">&times;</span>
+            <h3>Are you sure you want to delete this staff?</h3>
+            <div class="confirm-actions">
+                <button id="confirmDeleteBtn" disabled>Yes (<span id="deleteCountdown">5</span>)</button>
+                <button id="cancelDeleteBtn">No</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CSV Preview Modal -->
+    <div id="csvPreviewModal" class="modal">
+        <div class="modal-content modal-wide">
+            <span class="close" id="closeCsvPreviewModal">&times;</span>
+            <h3>CSV Export Preview</h3>
+            <div id="csvPreviewContent" style="max-height: 400px; overflow-y: auto; background: #f9f9f9; padding: 10px; border: 1px solid #ddd; margin: 10px 0;"></div>
+            <div class="confirm-actions">
+                <button id="confirmCsvExportBtn">Export to CSV</button>
+                <button id="cancelCsvExportBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <script src="Vet_Admin_JS.js"></script>
+</body>
+</html>

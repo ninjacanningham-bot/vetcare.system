@@ -1,0 +1,561 @@
+:root {
+    --bg: #eef3f7;
+    --surface: #ffffff;
+    --surface-soft: #f5f9fb;
+    --surface-strong: #d9e5eb;
+    --text: #22303f;
+    --muted: #6b7b8a;
+    --primary: #1f7d82;
+    --primary-dark: #165c62;
+    --accent: #22a58f;
+    --accent-soft: #def5ef;
+    --danger: #e74c3c;
+    --shadow: 0 20px 45px rgba(34, 73, 92, 0.12);
+    --shadow-soft: 0 10px 28px rgba(34, 73, 92, 0.08);
+    --radius: 24px;
+    --transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    background: radial-gradient(circle at top left, rgba(34, 117, 138, 0.12), transparent 30%),
+                linear-gradient(180deg, #f3f7fb 0%, #e2eef5 55%, #d9e6ec 100%);
+    color: var(--text);
+}
+
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 42px;
+    background: rgba(31, 125, 130, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: 0 18px 40px rgba(31, 125, 130, 0.12);
+    transition: var(--transition);
+}
+
+.navbar:hover {
+    box-shadow: 0 22px 44px rgba(31, 125, 130, 0.16);
+}
+
+.logo {
+    font-size: 2.3rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #fff;
+    text-shadow: 0 8px 22px rgba(0, 0, 0, 0.14);
+}
+
+nav .nav-btn {
+    margin-left: 24px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.88);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 12px 18px;
+    border-radius: 999px;
+    transition: var(--transition);
+}
+
+nav .nav-btn:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.16);
+    transform: translateY(-1px);
+}
+
+nav .nav-btn.active {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.24);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+
+.staff-section,
+.excel-log-section {
+    max-width: 1140px;
+    margin: 48px auto 0;
+    padding: 0 24px;
+}
+
+.staff-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    margin-bottom: 28px;
+}
+
+.add-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    background: linear-gradient(135deg, var(--accent), var(--primary));
+    box-shadow: 0 18px 30px rgba(34, 117, 138, 0.25);
+    transition: var(--transition);
+}
+
+.add-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 24px 40px rgba(34, 117, 138, 0.28);
+}
+
+#searchBar {
+    flex: 1;
+    max-width: 360px;
+    min-width: 220px;
+    padding: 14px 18px;
+    border-radius: 999px;
+    border: 1px solid rgba(31, 125, 130, 0.16);
+    background: #fff;
+    color: var(--text);
+    font-size: 0.96rem;
+    box-shadow: var(--shadow-soft);
+    outline: none;
+    transition: var(--transition);
+}
+
+#searchBar:focus {
+    border-color: var(--primary);
+    box-shadow: 0 12px 28px rgba(31, 125, 130, 0.12);
+}
+
+.staff-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 24px;
+    padding-bottom: 30px;
+}
+
+.empty-state {
+    padding: 80px 20px;
+    color: var(--muted);
+    font-size: 1.15rem;
+    text-align: center;
+    background: #ffffff;
+    border-radius: 28px;
+    box-shadow: var(--shadow);
+}
+
+.staff-card {
+    background: linear-gradient(180deg, #fff 0%, #f8fcfd 100%);
+    border-radius: 28px;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
+    border: 1px solid rgba(31, 125, 130, 0.12);
+}
+
+.staff-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 22px 42px rgba(31, 125, 130, 0.14);
+    border-color: rgba(31, 125, 130, 0.2);
+}
+
+.profile-pic {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-soft), #fff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1px rgba(31, 125, 130, 0.08), 0 12px 24px rgba(31, 125, 130, 0.08);
+}
+
+.profile-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-pic.large {
+    width: 140px;
+    height: 140px;
+}
+
+.staff-info {
+    text-align: center;
+    width: 100%;
+}
+
+.staff-info div:first-child {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.staff-info div:last-child {
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(20, 38, 52, 0.42);
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    backdrop-filter: blur(3px);
+}
+
+.modal-content {
+    width: min(95vw, 720px);
+    background: linear-gradient(180deg, #ffffff 0%, #f8fcfd 100%);
+    border-radius: 28px;
+    padding: 36px 40px;
+    box-shadow: 0 28px 70px rgba(31, 125, 130, 0.16);
+    border: 1px solid rgba(31, 125, 130, 0.12);
+    animation: popIn 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.modal-wide {
+    min-width: 540px;
+    max-width: 760px;
+}
+
+.modal-confirm {
+    min-width: 320px;
+    max-width: 420px;
+    text-align: center;
+}
+
+@keyframes popIn {
+    from { opacity: 0; transform: translateY(22px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.close {
+    position: absolute;
+    right: 18px;
+    top: 18px;
+    font-size: 1.5rem;
+    color: var(--muted);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.close:hover {
+    color: var(--text);
+    transform: scale(1.05);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.form-row label {
+    display: grid;
+    gap: 10px;
+    font-size: 0.95rem;
+    color: var(--text);
+    font-weight: 600;
+}
+
+form label input,
+form label select {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 16px;
+    border: 1px solid rgba(31, 125, 130, 0.16);
+    background: #f9fcfd;
+    color: var(--text);
+    transition: var(--transition);
+    font-size: 0.95rem;
+}
+
+form label input:focus,
+form label select:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(34, 117, 138, 0.08);
+}
+
+form input[type="file"] {
+    padding: 12px 14px;
+}
+
+form button[type="submit"],
+#cancelBtn,
+.delete-all-btn,
+.export-btn {
+    margin-top: 18px;
+    padding: 14px 26px;
+    border-radius: 16px;
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+form button[type="submit"] {
+    background: linear-gradient(135deg, var(--accent), var(--primary));
+    color: #fff;
+    box-shadow: 0 16px 24px rgba(34, 117, 138, 0.18);
+}
+
+form button[type="submit"]:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 20px 28px rgba(34, 117, 138, 0.22);
+}
+
+#cancelBtn {
+    background: #f4f6f7;
+    color: var(--text);
+}
+
+#cancelBtn:hover {
+    background: #e9eef2;
+}
+
+.error-msg {
+    color: var(--danger);
+    font-size: 0.85rem;
+    margin-top: 4px;
+}
+
+.error-msg.show {
+    display: block;
+}
+
+form input.input-error,
+form select.input-error {
+    border-color: var(--danger);
+}
+
+.info-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.info-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.edit-btn,
+.delete-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    background: rgba(31, 125, 130, 0.95);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.delete-btn {
+    background: var(--danger);
+}
+
+.edit-btn:hover,
+.delete-btn:hover {
+    transform: scale(1.05);
+}
+
+#infoDetails {
+    line-height: 1.6;
+    color: var(--text);
+}
+
+.confirm-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+#confirmDeleteBtn,
+#cancelDeleteBtn,
+.delete-all-btn,
+.export-btn {
+    min-width: 140px;
+}
+
+#confirmDeleteBtn {
+    background: var(--danger);
+    color: #fff;
+}
+
+#confirmDeleteBtn:not(:disabled):hover,
+.export-btn:hover,
+.delete-all-btn:hover {
+    transform: translateY(-1px);
+}
+
+#cancelDeleteBtn {
+    background: #f4f6f7;
+    color: var(--text);
+}
+
+.delete-all-btn,
+.export-btn {
+    background: linear-gradient(135deg, #1f7d82 0%, #22a58f 100%);
+    color: #fff;
+    box-shadow: 0 16px 24px rgba(34, 117, 138, 0.16);
+}
+
+.excel-log-section {
+    background: #ffffff;
+    border-radius: 32px;
+    padding: 30px 26px 34px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(31, 125, 130, 0.12);
+}
+
+.excel-controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.excel-search-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: center;
+}
+
+#excelSearchInput,
+#excelFilterSelect {
+    padding: 14px 16px;
+    border-radius: 16px;
+    border: 1px solid rgba(31, 125, 130, 0.14);
+    background: #f8fbfb;
+    color: var(--text);
+    font-size: 0.95rem;
+}
+
+#excelSearchInput:focus,
+#excelFilterSelect:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(34, 117, 138, 0.08);
+}
+
+#excelLogTableContainer {
+    overflow-x: auto;
+    border-radius: 24px;
+    border: 1px solid rgba(31, 125, 130, 0.12);
+    background: #ffffff;
+}
+
+#excelLogTable {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1180px;
+}
+
+#excelLogTable th,
+#excelLogTable td {
+    padding: 16px 18px;
+    text-align: center;
+    font-size: 0.92rem;
+}
+
+#excelLogTable th {
+    background: linear-gradient(135deg, rgba(31, 125, 130, 0.12), rgba(34, 117, 138, 0.2));
+    color: var(--text);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+#excelLogTable tbody tr {
+    border-bottom: 1px solid rgba(31, 125, 130, 0.08);
+}
+
+#excelLogTable tbody tr:nth-child(even) {
+    background: #f8fbfb;
+}
+
+#excelLogTable tbody tr:hover {
+    background: #eef7f7;
+}
+
+#excelLogTable td:first-child,
+#excelLogTable th:first-child {
+    text-align: left;
+}
+
+#lastExtractionInfo {
+    display: none;
+    font-size: 0.95rem;
+    color: var(--primary-dark);
+    margin-bottom: 18px;
+    padding: 14px 18px;
+    border-radius: 18px;
+    background: rgba(34, 117, 138, 0.08);
+    border: 1px solid rgba(34, 117, 138, 0.14);
+}
+
+@media (max-width: 1024px) {
+    .navbar {
+        padding: 18px 24px;
+    }
+    .staff-section,
+    .excel-log-section {
+        padding: 0 18px;
+    }
+    nav .nav-btn {
+        margin-left: 14px;
+        padding: 10px 14px;
+    }
+    .staff-card {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .staff-controls,
+    .excel-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .staff-section,
+    .excel-log-section {
+        margin-top: 32px;
+    }
+    .staff-cards {
+        grid-template-columns: 1fr;
+    }
+    .nav-btn {
+        font-size: 0.98rem;
+    }
+    .modal-content {
+        padding: 28px 24px;
+    }
+}
